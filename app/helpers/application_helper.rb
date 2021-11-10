@@ -22,4 +22,12 @@ module ApplicationHelper
         raw(pagy_bootstrap_nav(obj)) if obj.pages > 1
     end
 
+    def full_title(page_title = '')
+        base_title = 'Rubyrary'
+        if page_title.present?
+          "#{page_title} | #{base_title}"
+        else
+          base_title
+        end
+      end
 end

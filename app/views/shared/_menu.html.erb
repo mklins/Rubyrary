@@ -1,15 +1,14 @@
 <%= provide :main_menu do %>
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-2 border-bottom">
         <ul class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none">
-            <li href="http://127.0.0.1:3000/" class="nav-link px-2 link-dark">Rubyrary</a></ul>
+            <%= link_to "Rubyrary", root_path,
+                    class: "h4 nav-link px-2 link-dark" %>
+        </ul>
 
-        <ul class="nav col-12 col-md-auto mb-3 justify-content-center mb-md-1">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-1">
             <li><%= nav_tab 'Home', root_path,
-                          class: 'nav-link px-2', current_page: current_page %></li>
-            <li><a href="https://getbootstrap.com/docs/5.1/examples/headers/#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.1/examples/headers/#" class="nav-link px-2 link-dark">Pricing</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.1/examples/headers/#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.1/examples/headers/#" class="nav-link px-2 link-dark">About</a></li>
+                          class: 'h4 nav-link px-2', current_page: current_page %></li>
+        
         </ul>
 
         <div class="align-items-center col-md-2">

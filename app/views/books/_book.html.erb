@@ -1,15 +1,16 @@
 <div class="col">
-    <div class="card">
+    <div class="card h-100">
         <% if book.cover.attached? %>
             <%= cl_image_tag book.cover.key, :width=>414, :height=>600, :crop=>"fill" %>
         <% end %>
 
         <div class="card-body">
             <p class="card-text">
-                <%= truncate strip_tags(book.body), length: 150 %>
+                <%= truncate strip_tags(book.body), length: 80 %>
             </p>
             <div class="d-flex justify-content-between align-items-center">
                 <%= link_to 'Show', book_path(book), class: 'btn btn-outline-primary' %>
+                <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-outline-secondary' %>
                 <%= link_to 'Delete', book_path(book), class: 'btn btn-outline-danger',
                     data: {method: :delete, confirm: 'Are you sure?'} %>
             </div>
