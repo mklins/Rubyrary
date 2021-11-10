@@ -2,7 +2,7 @@ class BooksController < ApplicationController
     before_action :set_book!, only: %i[show destroy edit update]
 
     def index
-        @pagy, @books = pagy Book.order(created_at: :desc)
+        @pagy, @books = pagy Book.with_attached_cover.order(created_at: :desc)
     end
 
     def new
@@ -11,6 +11,7 @@ class BooksController < ApplicationController
 
     def create
         @book = Book.new book_params
+
         if @book.save
             flash[:success] = 'Your book has been successfully published!'
             redirect_to books_path
@@ -44,7 +45,7 @@ class BooksController < ApplicationController
     private
 
     def book_params
-        params.require(:book).permit(:title, :body, :cover_picture)
+        params.require(:book).permit(:title, :body, :cover)
     end
 
     def set_book!

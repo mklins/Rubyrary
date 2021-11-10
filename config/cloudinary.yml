@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: mklit
+  api_key: '389646457369853'
+  api_secret: fS-7h3LTNPDyH5MADqFZYRYGP2w
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: mklit
+  api_key: '389646457369853'
+  api_secret: fS-7h3LTNPDyH5MADqFZYRYGP2w
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: mklit
+  api_key: '389646457369853'
+  api_secret: fS-7h3LTNPDyH5MADqFZYRYGP2w
+  enhance_image_tag: true
+  static_file_support: false

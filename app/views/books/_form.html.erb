@@ -6,7 +6,7 @@
       <%= f.label :title %>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-5">
       <%= f.text_field :title, placeholder: 'Title of the book', class: 'form-control' %>
     </div>
   </div>
@@ -16,24 +16,28 @@
       <%= f.label :body %>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-5">
       <%= f.text_area :body, class: 'form-control' %>
     </div>
   </div>
 
   <div class="justify-content-center mb-3 row">
     <div class="col-sm-1 col-form-label">
-      <%= f.label :cover_picture %>
+      <%= f.label :cover %>
     </div>
 
-    <div class="col-sm-8">
-      <%= f.file_field :cover_picture %>
+    <div class="col-sm-5">
+      <%= f.file_field :cover %>
     </div>
+
+    <% if @book.cover.attached? %>
+        <%= cl_image_tag @book.cover %>
+    <% end %>
   </div>
 
     <div class="container">
         <div class="col-md-12 text-center ">
-        <%= f.submit "Upload a book!", class: 'btn-lg btn-primary' %>
+        <%= f.submit "Upload a book!", class: 'btn-lg btn-success' %>
     </div>
   </div>
 <% end %>
