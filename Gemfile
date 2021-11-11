@@ -16,6 +16,8 @@ gem 'draper', '~> 4.0'
 gem 'pagy', '~> 5.0'
 gem 'image_processing', '~> 1.2'
 gem 'cloudinary', '~> 1.21'
+gem 'valid_email2', '~> 4.0'
+gem 'pundit', '~> 2.1'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 

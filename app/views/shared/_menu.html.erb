@@ -7,14 +7,23 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-1">
             <li><%= nav_tab 'Home', root_path,
-                          class: 'h4 nav-link px-2', current_page: current_page %></li>
-        
+                    class: 'h4 nav-link px-2', current_page: current_page %></li>
+            <% if user_signed_in? %>
+                <li><%= nav_tab 'MyProfile', edit_user_path(current_user),
+                    class: 'h4 nav-link px-2', current_page: current_page %></li>
+            <% end %>
         </ul>
 
         <div class="align-items-center col-md-2">
-            <%= link_to 'Upload a book', new_book_path, class: 'btn btn-outline-success px-2' %>
-            <button type="button" class="btn btn-outline-primary px-2">Login</button>
-            <button type="button" class="btn btn-primary px-2">Sign-up</button>
+            <% if user_signed_in? %>
+                <%= link_to 'Log Out', session_path,
+                    class: 'btn btn-outline-secondary px-2', data: {method: :delete} %>
+            <% else %>
+                <%= link_to 'Log In', new_session_path,
+                    class: 'btn btn-outline-primary px-2', current_page: current_page %>
+                <%= link_to 'Sign Up', new_user_path,
+                    class: 'btn btn-primary px-2', current_page: current_page %></li>
+            <% end %>
         </div>
     </header>
 <% end %>
