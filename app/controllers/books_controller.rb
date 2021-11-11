@@ -1,8 +1,9 @@
 class BooksController < ApplicationController
     before_action :set_book!, only: %i[show destroy edit update]
+    before_action :fetch_groups, only: %i[new edit]
 
     def index
-        @pagy, @books = pagy Book.with_attached_cover.order(created_at: :desc)
+        @pagy, @books = pagy Book.includes(:cover, :book_groups, :groups).order(created_at: :desc)
     end
 
     def new
@@ -45,10 +46,14 @@ class BooksController < ApplicationController
     private
 
     def book_params
-        params.require(:book).permit(:title, :body, :cover)
+        params.require(:book).permit(:title, :body, :cover, group_ids: [])
     end
 
     def set_book!
         @book = Book.find params[:id]
+    end
+
+    def fetch_groups
+        @groups = Group.all
     end
 end

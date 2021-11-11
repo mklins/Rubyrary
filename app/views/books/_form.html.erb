@@ -35,6 +35,21 @@
     <% end %>
   </div>
 
+  <div class="container">
+    <div class="justify-content-center mb-4 row">
+        <div class="col-sm-1 form-check-label">
+          <%= f.label :groups %>
+        </div>
+
+      <div class="form-check form-check-inline mb-4">
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 md-3 g-2">
+          <%= f.collection_check_boxes :group_ids, groups, :id, :title, {}, multiple: true
+             %>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="container">
         <div class="col-md-12 text-center ">
         <%= f.submit "Upload a book!", class: 'btn-lg btn-success' %>

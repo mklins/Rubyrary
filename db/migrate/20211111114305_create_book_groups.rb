@@ -6,5 +6,7 @@ class CreateBookGroups < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :book_groups, [:book_id, :group_id], unique: true
   end
 end

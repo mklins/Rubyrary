@@ -5,6 +5,13 @@
         <% end %>
 
         <div class="card-body">
+            <div class="my-2">
+                <%= link_to books_path(group_ids: group),
+                    class: 'btn btn-sm btn-outline-secondary' do %>
+                    <small><%= group.title %></small>
+                <% end %>
+            </div>
+
             <p class="card-text">
                 <%= truncate strip_tags(book.body), length: 80 %>
             </p>

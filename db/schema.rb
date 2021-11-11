@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_11_105336) do
+ActiveRecord::Schema.define(version: 2021_11_11_114305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 2021_11_11_105336) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "book_groups", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id", "group_id"], name: "index_book_groups_on_book_id_and_group_id", unique: true
+    t.index ["book_id"], name: "index_book_groups_on_book_id"
+    t.index ["group_id"], name: "index_book_groups_on_group_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
     t.string "cover"
@@ -51,6 +61,12 @@ ActiveRecord::Schema.define(version: 2021_11_11_105336) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_books_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,5 +83,7 @@ ActiveRecord::Schema.define(version: 2021_11_11_105336) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "book_groups", "books"
+  add_foreign_key "book_groups", "groups"
   add_foreign_key "books", "users"
 end
