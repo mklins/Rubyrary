@@ -3,7 +3,7 @@ class BooksController < ApplicationController
     before_action :fetch_groups, only: %i[new edit]
 
     def index
-        @pagy, @books = pagy Book.includes(:cover, :book_groups, :groups).order(created_at: :desc)
+        @pagy, @books = pagy Book.with_attached_cover.includes(:book_groups, :groups).order(created_at: :desc)
     end
 
     def new
@@ -11,7 +11,7 @@ class BooksController < ApplicationController
     end
 
     def create
-        @book = Book.new book_params
+        @book = current_user.books.build book_params
 
         if @book.save
             flash[:success] = 'Your book has been successfully published!'

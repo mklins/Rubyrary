@@ -7019,3 +7019,430 @@ app/views/books/_form.html.erb:46
 app/views/books/_form.html.erb:3
 app/views/books/new.html.erb:6
 app/controllers/books_controller.rb:20:in `create'
+Started GET "/books/new" for 127.0.0.1 at 2021-11-12 06:16:24 +0200
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering books/new.html.erb within layouts/application
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 21.1ms | Allocations: 11261)
+  Rendered shared/_errors.html.erb (Duration: 0.3ms | Allocations: 195)
+  [1m[36mGroup Load (1.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/views/books/_form.html.erb:46
+  Rendered books/_form.html.erb (Duration: 335.0ms | Allocations: 355936)
+  Rendered books/new.html.erb within layouts/application (Duration: 357.8ms | Allocations: 368082)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 408.7ms | Allocations: 384312)
+Completed 200 OK in 439ms (Views: 396.5ms | ActiveRecord: 20.2ms | Allocations: 397489)
+
+
+Started POST "/books" for 127.0.0.1 at 2021-11-12 06:16:28 +0200
+Processing by BooksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "book"=>{"title"=>"The Hobbit", "body"=>"Interesting book", "cover"=>#<ActionDispatch::Http::UploadedFile:0x00007f7ad915f8c8 @tempfile=#<Tempfile:/tmp/RackMultipart20211112-82781-dbkbwv.jpg>, @original_filename="56d96263885635.5acd0047cf3e6.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"book[cover]\"; filename=\"56d96263885635.5acd0047cf3e6.jpg\"\r\nContent-Type: image/jpeg\r\n">, "group_ids"=>["", "10", "12"]}, "commit"=>"Upload a book!"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mGroup Load (1.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/controllers/books_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mGroup Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "groups" WHERE "groups"."title" = $1 AND "groups"."id" != $2 LIMIT $3[0m  [["title", "Legend"], ["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mGroup Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "groups" WHERE "groups"."title" = $1 AND "groups"."id" != $2 LIMIT $3[0m  [["title", "Fantasy"], ["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mBook Create (2.8ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "The Hobbit"], ["body", "Interesting book"], ["created_at", "2021-11-12 04:16:28.627546"], ["updated_at", "2021-11-12 04:16:28.627546"], ["user_id", 3]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mBookGroup Create (3.6ms)[0m  [1m[32mINSERT INTO "book_groups" ("book_id", "group_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["book_id", 13], ["group_id", 10], ["created_at", "2021-11-12 04:16:28.632527"], ["updated_at", "2021-11-12 04:16:28.632527"]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mBookGroup Create (1.0ms)[0m  [1m[32mINSERT INTO "book_groups" ("book_id", "group_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["book_id", 13], ["group_id", 12], ["created_at", "2021-11-12 04:16:28.637885"], ["updated_at", "2021-11-12 04:16:28.637885"]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 13], ["record_type", "Book"], ["name", "cover"], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mActiveStorage::Blob Create (2.0ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "hjspl7dqy80yxahq8z63uf3ya4ev"], ["filename", "56d96263885635.5acd0047cf3e6.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "cloudinary"], ["byte_size", 1419880], ["checksum", "AirxOQvjchFvEZTtHD0IwQ=="], ["created_at", "2021-11-12 04:16:28.643846"]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mActiveStorage::Attachment Create (1.5ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "cover"], ["record_type", "Book"], ["record_id", 13], ["blob_id", 20], ["created_at", "2021-11-12 04:16:28.647715"]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mBook Update (1.9ms)[0m  [1m[33mUPDATE "books" SET "updated_at" = $1 WHERE "books"."id" = $2[0m  [["updated_at", "2021-11-12 04:16:28.650851"], ["id", 13]]
+  ↳ app/controllers/books_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/books_controller.rb:16:in `create'
+[36m  Cloudinary Storage (3648.6ms) [0m[32mUploaded file to key: hjspl7dqy80yxahq8z63uf3ya4ev (checksum: AirxOQvjchFvEZTtHD0IwQ==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 42f27b3d-4f67-4ee2-87a3-0dedf3ca2650) to Async(default) with arguments: #<GlobalID:0x00007f7ac5650cb0 @uri=#<URI::GID gid://rubyrary/ActiveStorage::Blob/20>>
+Redirected to http://127.0.0.1:3000/books
+Completed 302 Found in 3741ms (ActiveRecord: 28.9ms | Allocations: 193614)
+
+
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:16:32 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 6.4ms | Allocations: 3239)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mActiveStorage::Blob Load (1.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650] Performing ActiveStorage::AnalyzeJob (Job ID: 42f27b3d-4f67-4ee2-87a3-0dedf3ca2650) from Async(default) enqueued at 2021-11-12T04:16:32Z with arguments: #<GlobalID:0x00007f7a9008a360 @uri=#<URI::GID gid://rubyrary/ActiveStorage::Blob/20>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650] [36m  Cloudinary Storage (0.2ms) [0m[34mGenerated URL for file at key: hjspl7dqy80yxahq8z63uf3ya4ev (http://res.cloudinary.com/mklit/image/upload/hjspl7dqy80yxahq8z63uf3ya4ev.jpg)[0m
+  [1m[36mBook Load (3.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered books/index.html.erb within layouts/application (Duration: 16.4ms | Allocations: 8872)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | Allocations: 8952)
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 6.8ms | Allocations: 11343)
+
+
+  
+ActionView::Template::Error (Association named 'cover' was not found on Book; perhaps you misspelled it?
+Did you mean?  cover_blob
+               cover_attachment
+               user
+               book_groups):
+    20: <div class="album py-4 bg-light">
+    21:     <div class="container">
+    22:         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    23:             <%= render @books %>
+    24:         </div>
+    25:     </div>
+    26:     <%= pagination @pagy %>
+  
+app/views/books/index.html.erb:23
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650] [36m  Cloudinary Storage (1219.1ms) [0m[34mDownloaded file from key: hjspl7dqy80yxahq8z63uf3ya4ev[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650]   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650]   [1m[36mActiveStorage::Blob Update (0.4ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"width\":1400,\"height\":1980,\"analyzed\":true}"], ["id", 20]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650]   [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [42f27b3d-4f67-4ee2-87a3-0dedf3ca2650] Performed ActiveStorage::AnalyzeJob (Job ID: 42f27b3d-4f67-4ee2-87a3-0dedf3ca2650) from Async(default) in 1435.5ms
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:19:29 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 22.7ms | Allocations: 9919)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (1.0ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (0.9ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.4ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 7.1ms | Allocations: 5494)
+  Rendered books/index.html.erb within layouts/application (Duration: 98.5ms | Allocations: 49623)
+  Rendered layout layouts/application.html.erb (Duration: 98.7ms | Allocations: 49698)
+Completed 500 Internal Server Error in 111ms (ActiveRecord: 34.1ms | Allocations: 55065)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `group' for #<ActionView::Base:0x000000000235f0>):
+     6: 
+     7:         <div class="card-body">
+     8:             <div class="my-2">
+     9:                 <%= link_to books_path(group_ids: group),
+    10:                     class: 'btn btn-sm btn-outline-secondary' do %>
+    11:                     <small><%= group.title %></small>
+    12:                 <% end %>
+  
+app/views/books/_book.html.erb:9
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:20:47 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 9.1ms | Allocations: 2326)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (1.1ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (1.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.0ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.7ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 6.2ms | Allocations: 5453)
+  Rendered books/index.html.erb within layouts/application (Duration: 33.9ms | Allocations: 14252)
+  Rendered layout layouts/application.html.erb (Duration: 34.1ms | Allocations: 14327)
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 11.1ms | Allocations: 16718)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `group' for #<ActionView::Base:0x00000000023c08>):
+     8:             <div class="my-2">
+     9:                 <%= link_to books_path(group_ids: @group),
+    10:                     class: 'btn btn-sm btn-outline-secondary' do %>
+    11:                     <small><%= group.title %></small>
+    12:                 <% end %>
+    13:             </div>
+    14: 
+  
+app/views/books/_book.html.erb:11
+app/views/books/_book.html.erb:9
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:20:56 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 9.0ms | Allocations: 2324)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (1.6ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (1.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.0ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 2.1ms | Allocations: 2379)
+  Rendered books/index.html.erb within layouts/application (Duration: 31.0ms | Allocations: 11172)
+  Rendered layout layouts/application.html.erb (Duration: 31.2ms | Allocations: 11247)
+Completed 500 Internal Server Error in 41ms (ActiveRecord: 10.3ms | Allocations: 13636)
+
+
+  
+ActionView::Template::Error (undefined method `title' for nil:NilClass):
+     8:             <div class="my-2">
+     9:                 <%= link_to books_path(group_ids: @group),
+    10:                     class: 'btn btn-sm btn-outline-secondary' do %>
+    11:                     <small><%= @group.title %></small>
+    12:                 <% end %>
+    13:             </div>
+    14: 
+  
+app/views/books/_book.html.erb:11
+app/views/books/_book.html.erb:9
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:35:08 +0200
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 20.6ms | Allocations: 11454)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (0.8ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered books/index.html.erb within layouts/application (Duration: 33.6ms | Allocations: 18693)
+  Rendered layout layouts/application.html.erb (Duration: 33.8ms | Allocations: 18785)
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 12.6ms | Allocations: 28388)
+
+
+  
+ActionView::Template::Error (Association named 'cover' was not found on Book; perhaps you misspelled it?
+Did you mean?  cover_blob
+               cover_attachment
+               user
+               book_groups):
+    20: <div class="album py-4 bg-light">
+    21:     <div class="container">
+    22:         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    23:             <%= render @books %>
+    24:         </div>
+    25:     </div>
+    26:     <%= pagination @pagy %>
+  
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:35:09 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 5.2ms | Allocations: 1885)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (0.9ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered books/index.html.erb within layouts/application (Duration: 9.1ms | Allocations: 4309)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | Allocations: 4378)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 3.0ms | Allocations: 5849)
+
+
+  
+ActionView::Template::Error (Association named 'cover' was not found on Book; perhaps you misspelled it?
+Did you mean?  cover_blob
+               cover_attachment
+               user
+               book_groups):
+    20: <div class="album py-4 bg-light">
+    21:     <div class="container">
+    22:         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    23:             <%= render @books %>
+    24:         </div>
+    25:     </div>
+    26:     <%= pagination @pagy %>
+  
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:39:52 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 20.5ms | Allocations: 9853)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (0.8ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (1.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.6ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.3ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 11.2ms | Allocations: 7947)
+  Rendered books/index.html.erb within layouts/application (Duration: 113.8ms | Allocations: 57346)
+  Rendered layout layouts/application.html.erb (Duration: 114.0ms | Allocations: 57421)
+Completed 500 Internal Server Error in 126ms (ActiveRecord: 35.3ms | Allocations: 62605)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `group' for #<ActionView::Base:0x0000000000c008>):
+     6: 
+     7:         <div class="card-body">
+     8:             <div class="my-2">
+     9:                 <%= link_to books_path(group_ids: group),
+    10:                     class: 'btn btn-sm btn-outline-secondary' do %>
+    11:                     <small><%= group.title %></small>
+    12:                 <% end %>
+  
+app/views/books/_book.html.erb:9
+app/views/books/index.html.erb:23
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:52:30 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 6.1ms | Allocations: 2663)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (1.7ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.0ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 5.5ms | Allocations: 1146)
+  Rendered books/index.html.erb within layouts/application (Duration: 29.7ms | Allocations: 10346)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 66.3ms | Allocations: 26686)
+Completed 200 OK in 112ms (Views: 59.4ms | ActiveRecord: 21.4ms | Allocations: 32300)
+
+
+Started GET "/books" for 127.0.0.1 at 2021-11-12 06:59:15 +0200
+Processing by BooksController#index as HTML
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  Rendered shared/_menu.html.erb (Duration: 6.0ms | Allocations: 2661)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/authentication.rb:15:in `user_with_session'
+  [1m[36mBook Load (0.9ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."created_at" DESC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Attachment Load (1.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Book"], ["name", "cover"], ["record_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mActiveStorage::Blob Load (1.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 20]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mBookGroup Load (1.3ms)[0m  [1m[34mSELECT "book_groups".* FROM "book_groups" WHERE "book_groups"."book_id" = $1[0m  [["book_id", 13]]
+  ↳ app/views/books/index.html.erb:23
+  [1m[36mGroup Load (1.2ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" IN ($1, $2)[0m  [["id", 10], ["id", 12]]
+  ↳ app/views/books/index.html.erb:23
+  Rendered collection of books/_book.html.erb [1 times] (Duration: 8.0ms | Allocations: 5588)
+  Rendered books/index.html.erb within layouts/application (Duration: 30.9ms | Allocations: 14772)
+  Rendered layout layouts/application.html.erb (Duration: 31.1ms | Allocations: 14846)
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 16.1ms | Allocations: 20408)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `group' for #<ActionView::Base:0x0000000000c850>):
+     8:             <div class="my-2">
+     9:                 <%= link_to books_path(group_ids: @group),
+    10:                     class: 'btn btn-sm btn-outline-secondary' do %>
+    11:                     <small><%= group.title %></small>
+    12:                 <% end %>
+    13:             </div>
+    14: 
+  
+app/views/books/_book.html.erb:11
+app/views/books/_book.html.erb:9
+app/views/books/index.html.erb:23
