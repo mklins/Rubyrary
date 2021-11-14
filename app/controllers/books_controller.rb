@@ -3,7 +3,9 @@ class BooksController < ApplicationController
     before_action :fetch_groups, only: %i[new edit]
 
     def index
-        @pagy, @books = pagy Book.with_attached_cover.includes(:book_groups, :groups).order(created_at: :desc)
+        @pagy, @books = pagy Book.with_attached_cover.all_by_groups(params[:group_ids])
+        # with_attached_cover.includes(:book_groups, :groups).order(created_at: :desc)
+        @searched_group = Group.where(id: params[:group_ids]).pluck(:title)
     end
 
     def new

@@ -1,11 +1,11 @@
-<% # provide :page_title, 'Books' %>
+<% provide :page_title, 'Books' %>
 <% currently_at 'Books' %>
 
 <section class="py-2 text-center container">
     <div class="row py-lg-2">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Welcome to Rubyrary!</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p class="lead text-muted">The place where you can find any book you want! And even if it is not here, you can upload the book you have and help others to find it!</p>
         <p>
           <% if user_signed_in? %>
             <%= link_to 'Upload your book!', new_book_path, class: 'btn btn-primary my-2' %>
@@ -13,6 +13,15 @@
             <%= link_to 'Please register if you want to upload your book', new_book_path, class: 'btn btn-secondary disabled my-2' %>
           <% end %>
         </p>
+        <p class="lead text-black">Here you can filter all the books by their group (genre):</p>
+        <div class="my-2 md-4">
+          <%= render Group.all %>
+        </div>
+          <% if @searched_group[0] %>
+            <div class="lead text-muted">Currently selected group: </div>
+            <p class="fw-light"><%= @searched_group[0] %></p> 
+          <% end %>
+        
       </div>
     </div>
 </section>
