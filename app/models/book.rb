@@ -2,6 +2,7 @@ class Book < ApplicationRecord
 
     has_one_attached :cover, dependent: :destroy
     belongs_to :user
+    has_and_belongs_to_many :authors
     has_many :book_groups, dependent: :destroy
     has_many :groups, through: :book_groups
     

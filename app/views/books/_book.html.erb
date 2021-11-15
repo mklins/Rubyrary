@@ -8,7 +8,11 @@
             <div class="my-2 md-4">
                 <%= render book.groups %>
             </div>
-
+            <div class="my-2 md-4">
+                <h3><%= book.title %></h3>
+                <%= render book.authors %>
+            </div>
+            
             <p class="card-text">
                 <%= truncate strip_tags(book.body), length: 80 %>
             </p>

@@ -16,6 +16,7 @@ class BooksController < ApplicationController
         @book = current_user.books.build book_params
 
         if @book.save
+            add_authors
             flash[:success] = 'Your book has been successfully published!'
             redirect_to books_path
         else
@@ -57,5 +58,18 @@ class BooksController < ApplicationController
 
     def fetch_groups
         @groups = Group.all
+    end
+
+    def add_authors
+        authors = params[:book][:author].chomp.split(",")
+        authors.each do |name|
+            if Author.where(name: name).exists?
+                @author = Author.where(name: name)
+            else
+                @author = Author.new(name: name)
+            end
+            @author.books << @book
+            @author.save
+        end
     end
 end

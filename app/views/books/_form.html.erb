@@ -23,6 +23,16 @@
 
   <div class="justify-content-center mb-3 row">
     <div class="col-sm-1 col-form-label">
+      <%= f.label :authors %>
+    </div>
+
+    <div class="col-sm-5">
+      <%= f.text_field :author, placeholder: 'Authors of the book, with a coma after each author', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="justify-content-center mb-3 row">
+    <div class="col-sm-1 col-form-label">
       <%= f.label :cover %>
     </div>
 
