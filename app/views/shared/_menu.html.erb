@@ -8,6 +8,12 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-1">
             <li><%= nav_tab 'Home', root_path,
                     class: 'h4 nav-link px-2', current_page: current_page %></li>
+            <% if policy([:admin, :user]).index? %>
+                <li><%= nav_tab 'Users', admin_users_path,
+                    class: 'h4 nav-link px-2', current_page: current_page %></li>
+                <li><%= nav_tab 'Authors', admin_authors_path,
+                    class: 'h4 nav-link px-2', current_page: current_page %></li>
+            <% end %>
             <% if user_signed_in? %>
                 <li><%= nav_tab 'MyProfile', edit_user_path(current_user),
                     class: 'h4 nav-link px-2', current_page: current_page %></li>

@@ -1,6 +1,10 @@
 class BooksController < ApplicationController
+    before_action :require_authentication, except: %i[index show]
     before_action :set_book!, only: %i[show destroy edit update]
     before_action :fetch_groups, only: %i[new edit]
+    before_action :authorize_book!
+    after_action :verify_authorized, except: %i[index show]
+
 
     def index
         @pagy, @books = pagy Book.with_attached_cover.all_by_groups(params[:group_ids])
@@ -31,7 +35,10 @@ class BooksController < ApplicationController
     def edit; end
 
     def update
-        if @book.update book_params
+        if @book.update permitted_attributes(@book)
+            if !params[:book][:author].empty?
+                update_authors
+            end
             flash[:success] = "Your book's info has been successfully updated!"
             redirect_to books_path
         else
@@ -62,14 +69,25 @@ class BooksController < ApplicationController
 
     def add_authors
         authors = params[:book][:author].chomp.split(",")
-        authors.each do |name|
-            if Author.where(name: name).exists?
-                @author = Author.where(name: name)
+        authors.each do |author|
+            if Author.where(name: author).exists?
+                @author = Author.find_by name: author
             else
-                @author = Author.new(name: name)
+                @author = Author.new(name: author)
             end
             @author.books << @book
             @author.save
         end
+    end
+
+    def update_authors
+        if current_user.role == "books_moderator" || current_user.role == "admin"
+            @book.authors.clear
+            add_authors
+        end
+    end
+
+    def authorize_book!
+        authorize(@book || Book)
     end
 end

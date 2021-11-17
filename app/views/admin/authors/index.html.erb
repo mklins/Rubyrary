@@ -1,0 +1,21 @@
+<% provide :page_title, 'Admin Authors' %>
+<% currently_at 'Authors' %>
+
+<h1 class="mb-4">Admin Authors</h1>
+
+<%= pagination @pagy %>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @authors %>
+  </tbody>
+</table>
+
+<%= pagination @pagy %>

@@ -2,6 +2,8 @@ module Admin
     class UsersController < ApplicationController
       before_action :require_authentication
       before_action :set_user!, only: %i[edit update destroy]
+      before_action :authorize_user!
+      after_action :verify_authorized
   
       def index
         @pagy, @users = pagy User.order(created_at: :desc)
@@ -10,7 +12,6 @@ module Admin
       def edit; end
   
       def update
-        # @user.admin_edit = true
         if @user.update user_params
           flash[:success] = "User successfully updated!"
           redirect_to admin_users_path
@@ -35,6 +36,10 @@ module Admin
         params.require(:user).permit(
           :email, :name, :password, :password_confirmation, :role
         ).merge(admin_edit: true)
+      end
+
+      def authorize_user!
+        authorize(@user || User)
       end
     end
   end

@@ -15,9 +15,14 @@
                         <%= sanitize @book.body %>
                     </p>
                     <div class="btn-group">
-                        <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-outline-secondary' %>
-                        <%= link_to 'Delete', book_path(@book), class: 'btn btn-outline-danger',
-                            data: {method: :delete, confirm: 'Are you sure?'} %>
+                        <% if policy(@book).edit? %>
+                            <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-outline-secondary' %>
+                        <% end %>
+
+                        <% if policy(@book).destroy? %>
+                            <%= link_to 'Delete', book_path(@book), class: 'btn btn-outline-danger',
+                                data: {method: :delete, confirm: 'Are you sure?'} %>
+                        <% end %>
                     </div>
             </div>
         </div>

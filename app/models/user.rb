@@ -16,6 +16,10 @@ class User < ApplicationRecord
     validate :password_complexity
     validates :role, presence: true
 
+    def guest?
+        false
+    end
+
     def remember_me
         self.remember_token = SecureRandom.urlsafe_base64
         update_column :remember_token_digest, digest(remember_token)

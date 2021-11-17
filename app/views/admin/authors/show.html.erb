@@ -1,0 +1,21 @@
+<% provide :page_title, @author.name %>
+<% currently_at @author.name %>
+
+<h1 class="mb-4"> <% @author.name %>'s books </h1>
+
+<%= pagination @pagy %>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Created by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render 'book', book = @book.where(author_id: @author.id), user = @user.where(id: @book.user_id) %>
+  </tbody>
+</table>
+
+<%= pagination @pagy %>

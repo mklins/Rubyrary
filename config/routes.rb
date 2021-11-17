@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: %i[index create edit update destroy]
 
-    resources :authors, only: %i[index new create edit update]
+    resources :authors, only: %i[index create edit update]
+
+    resources :books, only: %i[index show]
   end
 
 end
