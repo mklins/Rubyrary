@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
     before_action :require_authentication, except: %i[index show]
     before_action :set_book!, only: %i[show destroy edit update]
-    before_action :fetch_groups, only: %i[new edit]
+    before_action :fetch_groups, only: %i[new create edit]
     before_action :authorize_book!
     after_action :verify_authorized, except: %i[index show]
 
