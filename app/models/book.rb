@@ -10,14 +10,9 @@ class Book < ApplicationRecord
     validates :body, presence: true, length: { minimum: 2 }
     validates :cover, presence: true
 
-    scope :all_by_groups, ->(groups) do
-        books = includes(:user)
-        if groups
-            books = books.joins(:groups).where(groups: groups).preload(:groups)
-        else
-            books = books.includes(:book_groups, :groups)
-        end
-
+    scope :all_by_groups, ->(group_ids) do
+        books = includes(:user, :book_groups, :groups)
+        books = books.joins(:groups).where(groups: group_ids) if group_ids
         books.order(created_at: :desc)
     end
 end

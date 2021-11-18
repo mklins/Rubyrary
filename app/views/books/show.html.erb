@@ -10,20 +10,21 @@
                 <% end %>            
             </div>
             <div class="col-md-6">
-                <h1 class="display-5 fw-bolder"><%= @book.title %></h1>
-                    <p class="lead">
-                        <%= sanitize @book.body %>
-                    </p>
-                    <div class="btn-group">
-                        <% if policy(@book).edit? %>
-                            <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-outline-secondary' %>
-                        <% end %>
+                <h2 class="display-5 fw-bolder"><%= @book.title %></h2>
+                <h4><%= render @book.authors %></h4>
+                <p class="py-4 lead">
+                    <%= sanitize @book.body %>
+                </p>
+                <div class="btn-group">
+                    <% if policy(@book).edit? %>
+                        <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-outline-secondary' %>
+                    <% end %>
 
-                        <% if policy(@book).destroy? %>
-                            <%= link_to 'Delete', book_path(@book), class: 'btn btn-outline-danger',
-                                data: {method: :delete, confirm: 'Are you sure?'} %>
-                        <% end %>
-                    </div>
+                    <% if policy(@book).destroy? %>
+                        <%= link_to 'Delete', book_path(@book), class: 'btn btn-outline-danger',
+                            data: {method: :delete, confirm: 'Are you sure?'} %>
+                    <% end %>
+                </div>
             </div>
         </div>
     </div>

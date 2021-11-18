@@ -20,9 +20,11 @@ class BookPolicy < ApplicationPolicy
     end
 
     def permitted_attributes_for_update
-        if user.admin_role? || user.books_moderator_role?
+        if user.admin_role?
+            [:title, :body, :cover, group_ids: []]
+        elsif user.books_moderator_role?
             [:title, :body, :cover]
-        elsif user.admin_role? || user.groups_moderator_role?
+        elsif user.groups_moderator_role?
             [group_ids: []]
         end
     end

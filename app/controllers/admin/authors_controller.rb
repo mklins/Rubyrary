@@ -37,7 +37,7 @@ module Admin
       end
   
       def author_params
-        params.require(:author).permit(:name).merge(admin_edit: true)
+        params.require(:author).permit(:name)
       end
 
       def authorize_author!
