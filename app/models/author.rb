@@ -1,5 +1,7 @@
-class Author < ApplicationRecord
-    has_and_belongs_to_many :books
+# frozen_string_literal: true
 
-    validates :name, presence: true, length: { minimum: 2 }
+class Author < ApplicationRecord
+  has_and_belongs_to_many :books
+
+  validates :name, presence: true, length: { minimum: 2 }
 end
