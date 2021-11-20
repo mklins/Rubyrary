@@ -41,7 +41,7 @@ Rails.application.configure do
 
   config.active_storage.service = :cloudinary
 
-  heroku config:set CLOUDINARY_URL=cloudinary://723183542625713:LeXD-D-s70oL6ctNtJpHQJUWBPM@hzzcqexlr
+  CLOUDINARY_URL=cloudinary://723183542625713:LeXD-D-s70oL6ctNtJpHQJUWBPM@hzzcqexlr
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
