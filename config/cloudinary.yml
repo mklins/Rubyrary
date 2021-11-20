@@ -6,9 +6,9 @@ development:
   enhance_image_tag: true
   static_file_support: false
 production:
-  cloud_name: mklit
-  api_key: '389646457369853'
-  api_secret: fS-7h3LTNPDyH5MADqFZYRYGP2w
+  cloud_name: hzzcqexlr
+  api_key: '723183542625713'
+  api_secret: LeXD-D-s70oL6ctNtJpHQJUWBPM
   enhance_image_tag: true
   static_file_support: true
 test:
