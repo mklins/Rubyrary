@@ -18,6 +18,6 @@ groups = ["Fantasy", "Science Fiction", "Action & Adventure",
         "Narrative nonfiction", "Thriller & Suspense", "Romance",
         "Graphic Novel", "History", "Memoir & Autobiography", "Humanities & Social Sciences"]
 
-for groups do |group|
+groups.each do |group|
     Group.create title: group
 end
